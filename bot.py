@@ -7,7 +7,10 @@ from aiogram import Bot
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 CHAT_ID = os.environ["CHAT_ID"]
 
-# Time to send the daily reminder (UTC), format "HH:MM"
+# Yekaterinburg timezone: UTC+5
+YEKATERINBURG_TZ = timezone(timedelta(hours=5))
+
+# Time to send the daily reminder (Yekaterinburg time), format "HH:MM"
 REMINDER_TIME = os.getenv("REMINDER_TIME", "09:00")
 REMINDER_TEXT = os.getenv("REMINDER_TEXT", "🔔 Ежедневное напоминание!")
 
@@ -23,18 +26,18 @@ async def main() -> None:
     bot = Bot(token=BOT_TOKEN)
 
     while True:
-        now = datetime.now(timezone.utc)
+        now = datetime.now(YEKATERINBURG_TZ)
         target = now.replace(hour=_hour, minute=_minute, second=0, microsecond=0)
         if now >= target:
             target += timedelta(days=1)
 
         wait_seconds = (target - now).total_seconds()
-        print(f"Next reminder at {target.strftime('%Y-%m-%d %H:%M')} UTC "
+        print(f"Next reminder at {target.strftime('%Y-%m-%d %H:%M')} Yekaterinburg time "
               f"(in {wait_seconds / 3600:.1f} hours)")
         await asyncio.sleep(wait_seconds)
 
         await bot.send_message(chat_id=CHAT_ID, text=REMINDER_TEXT)
-        print(f"Reminder sent at {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M')} UTC")
+        print(f"Reminder sent at {datetime.now(YEKATERINBURG_TZ).strftime('%Y-%m-%d %H:%M')} Yekaterinburg time")
 
 
 if __name__ == "__main__":

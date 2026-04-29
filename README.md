@@ -20,7 +20,7 @@ cp .env.example .env
 |------------|----------|
 | `BOT_TOKEN` | Токен бота от [@BotFather](https://t.me/BotFather) |
 | `CHAT_ID` | Ваш Telegram chat ID (узнать через [@userinfobot](https://t.me/userinfobot)) |
-| `REMINDER_TIME` | Время отправки в UTC, формат `HH:MM` (по умолчанию `09:00`) |
+| `REMINDER_TIME` | Время отправки по Екатеринбургу (UTC+5), формат `HH:MM` (по умолчанию `09:00`) |
 | `REMINDER_TEXT` | Текст напоминания (по умолчанию `🔔 Ежедневное напоминание!`) |
 
 2. Экспортируйте переменные окружения:
